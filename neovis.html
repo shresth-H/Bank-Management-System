@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <style type="text/csss">
+            #viz{
+                width: 900px;
+                height: 700px;
+            }
+        </style>
+        <script src="https://cdn.neo4jlabs.com/neovis.js/v1.5.0/neovis.js"></script>
+
+    </head>
+    <script>
+        function draw() {
+            var config = {
+                container_id:"viz",
+                server_url:"bolt://neo4j.edvantalabs.com:7687/",
+                server_user:"neo4j",
+                server_password:"Edvanta#21$",
+                labels:{
+                    "User":{
+                        caption:"username",
+                        size:"pagerank",
+                        community:"community"
+                    }
+                    
+                    
+                },
+                relationships:{
+                    "VISITED":{
+                        caption: false,
+                        thickness:"count"
+                    }
+
+                },
+                //Write your query here
+                initial_cypher: "match n=(:User{username:'flawsophies'})-[:VISITED]->(l:Link) return n"
+            
+                
+            }
+            var viz=new NeoVis.default(config);
+            viz.render();
+        }
+
+    </script>
+    <body onload="draw()">
+        <div id="viz"></div>
+    </body>
+</html>
